@@ -203,3 +203,45 @@ public class ProductRepository : GenericRepository<Product>
         }
     }
 ```
+### 4-Use Repository in Controller
+1.We have the interface that represents the way that we communicate with a repository.
+2.Our controller can use this in order to fetch the  data without having to care about how the data is represented.
+3. If we're using in hibernate entity framework or storing this to a file on disk, the Controller  no longer has to know anything about the underlying  structure.
+4. We then introduce the generic repository that allows us to generically work with our data context to reduce the amount of duplication of code inside our concrete implementations off our repositories.
+```c#
+public class CustomerController : Controller
+    {
+       //we use Di to inject the object
+        private readonly IRepository<Customer> repository;
+
+        public CustomerController(IRepository<Customer> repository)
+        {
+            this.repository = repository;
+        }
+
+        public IActionResult Index(Guid? id)
+        {
+            if (id == null)
+            {
+                var customers = repository.All();
+
+                return View(customers);
+            }
+            else
+            {
+                var customer = repository.Get(id.Value);
+
+                return View(new[] { customer });
+            }
+        }
+    }
+    
+    // in startup 
+     public void ConfigureServices(IServiceCollection services)
+        {
+           //...      
+            services.AddTransient<IRepository<Customer>, CustomerRepository>();
+            services.AddTransient<IRepository<Order>, OrderRepository>();
+            services.AddTransient<IRepository<Product>, ProductRepository>();
+        }
+```
