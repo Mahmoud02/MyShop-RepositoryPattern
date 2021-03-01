@@ -80,3 +80,10 @@ Entity Framework is an Object/Relational Mapping (O/RM) framework. It is an enha
 ``` 
 ## 
 <img src="https://user-images.githubusercontent.com/18700494/109553599-e4346e80-7adb-11eb-81ec-006b8d2982a2.png" />
+
+## So, what is the problem with that approach?
+1. The controller is tightly coupled with the data access layer.
+2. The controller has to know about the O.R M or the way that we work with our database. 
+3. it is difficult to write a test for the controller without side effects.
+4. once we want to leverage the same data access somewhere else in the application, we'll have to duplicate our code, and that's not very good for maintain ability.
+5. 
