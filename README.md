@@ -101,3 +101,9 @@
 4.  It's easy for us to write a test without having any side effects.
 5.  Introducing this repository also now means that we have a share a ble abstraction, resulting in less duplication of code. 
 6.   A repository is simply an abstraction that encapsulate your data access , making your code testable, reusable as well as maintainable.  
+
+## Implementation 
+1. We apply Three- layers Architecture in this Project, the repository classes will be here [MyShop.Infrastructure].
+2. Three-tier architecture means dividing the project into three layers User Interface Layer, Business Layer, and Data Layer where we separate logic, data, and user interface into three divisions. 
+3. No Problem, if you don't know it, you can read about it later. We will only focus on Repository Pattern.
+
