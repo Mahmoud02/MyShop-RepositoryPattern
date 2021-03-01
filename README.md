@@ -205,8 +205,8 @@ public class ProductRepository : GenericRepository<Product>
     }
 ```
 ### 4-Use Repository in Controller
-1.We have the interface that represents the way that we communicate with a repository.
-2.Our controller can use this in order to fetch the  data without having to care about how the data is represented.
+1. We have the interface that represents the way that we communicate with a repository.
+2. Our controller can use this in order to fetch the  data without having to care about how the data is represented.
 3. If we're using in hibernate entity framework or storing this to a file on disk, the Controller  no longer has to know anything about the underlying  structure.
 4. We then introduce the generic repository that allows us to generically work with our data context to reduce the amount of duplication of code inside our concrete implementations off our repositories.
 ```c#
