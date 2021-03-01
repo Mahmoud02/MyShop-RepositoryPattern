@@ -183,6 +183,7 @@ public abstract class GenericRepository<T>
 2. So we could override each of the methods inside our generic repository to introduce this custom behavior in our concrete implementations of our repositories.
 3. In order for us to be able to override those methods, they all need to be marked as virtual.
 4. This just means that we have the capability off overriding that particular method, but we don't have to. 
+
 ```c#
 public class ProductRepository : GenericRepository<Product>
     {
