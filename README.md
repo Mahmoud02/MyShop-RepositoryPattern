@@ -126,3 +126,80 @@ public interface IRepository<T>
         void SaveChanges();
     }
 ```
+#### 2-Create Generic Repository .
+1. a lot of  different repositories have the same type of code for retrieving, getting, finding and listing all the items.
+2. So how about we introduce a generic repository that introduces these base functionality that all of the different repositories can leverage?
+3. And if we have particular implementations for other types of repositories, we can introduce that in a subclass.
+4. We're going to make sure that we pass our shopping context into the constructor of our repository.
+```c#
+public abstract class GenericRepository<T> 
+        : IRepository<T> where T : class
+    {
+        protected ShoppingContext context;
+
+        public GenericRepository(ShoppingContext context)
+        {
+            this.context = context;
+        }
+
+        public virtual T Add(T entity)
+        {
+            return context
+                .Add(entity)
+                .Entity;
+        }
+
+        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        {
+            return context.Set<T>()
+                .AsQueryable()
+                .Where(predicate).ToList();
+        }
+
+        public virtual T Get(Guid id)
+        {
+            return context.Find<T>(id);
+        }
+
+        public virtual IEnumerable<T> All()
+        {
+            return context.Set<T>()
+                .ToList();
+        }
+
+        public virtual T Update(T entity)
+        {
+            return context.Update(entity)
+                .Entity;
+        }
+
+        public void SaveChanges()
+        {
+            context.SaveChanges();
+        }
+```
+### 3-Add Sub Classes
+1. The sub classes off generic repository can add custom behavior to each of the methods before data is passed to the database or return to the caller.
+2. So we could override each of the methods inside our generic repository to introduce this custom behavior in our concrete implementations of our repositories.
+3. In order for us to be able to override those methods, they all need to be marked as virtual.
+4. This just means that we have the capability off overriding that particular method, but we don't have to. 
+```c#
+public class ProductRepository : GenericRepository<Product>
+    {
+        public ProductRepository(ShoppingContext context) : base(context)
+        {
+
+        }
+        // here we override Update Method 
+        public override Product Update(Product entity)
+        {
+            var product = context.Products
+                .Single(p => p.ProductId == entity.ProductId);
+
+            product.Price = entity.Price;
+            product.Name = entity.Name;
+
+            return base.Update(product);
+        }
+    }
+```
