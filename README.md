@@ -92,4 +92,12 @@
 3. it is difficult to write a test for the controller without side effects.
 4. once we want to leverage the same data access somewhere else in the application, we'll have to duplicate our code, and that's not very good for maintain ability.
 
-## So, let see how Repository Pattern will help us to solve these problems!  
+## So, let see how Repository Pattern will help us to solve these problems!
+<img src="https://user-images.githubusercontent.com/18700494/109556132-0ed3f680-7adf-11eb-8922-e5a899e9943c.png" />
+
+1.  Applying the repository pattern simply means that we introduce a layer that encapsulate our data access code.
+2.  This means that our repository will know how to communicate with, for instance, entity framework and hibernate, or our file on disk or another SQL Server or other types off database is.
+3.  This means that the controller can now leverage our repository to ask for data without having to worry about how that data is fetched from our data store. 
+4.  It's easy for us to write a test without having any side effects.
+5.  Introducing this repository also now means that we have a share a ble abstraction, resulting in less duplication of code. 
+6.   A repository is simply an abstraction that encapsulate your data access , making your code testable, reusable as well as maintainable.  
