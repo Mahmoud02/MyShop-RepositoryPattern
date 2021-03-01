@@ -106,4 +106,23 @@
 1. We apply Three- layers Architecture in this Project, the repository classes will be here [MyShop.Infrastructure].
 2. Three-tier architecture means dividing the project into three layers User Interface Layer, Business Layer, and Data Layer where we separate logic, data, and user interface into three divisions. 
 3. No Problem, if you don't know it, you can read about it later. We will only focus on Repository Pattern.
+4. So we have three different projects. We have our web application, which contains our model views and controllers.
+5. we have an infrastructure project which will contain the data access as well as services 
+6. The third is our domain project. 
 
+#### 1-Create IRepository Interface.
+1. This interface will simply dictate the contract of a repository. 
+2. we're going to set up a generic interface.
+3. Our repository is going to allow us to add an entity it's going to allow us to update on entity, and it's going to allow us to retrieve a particular entity.
+4. we're going to introduce a concrete implementation off this interface which are controller can use. 
+```c#
+public interface IRepository<T>
+    {
+        T Add(T entity);
+        T Update(T entity);
+        T Get(Guid id);
+        IEnumerable<T> All();
+        IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
+        void SaveChanges();
+    }
+```
